@@ -22,7 +22,7 @@ public class DiceBet{
 				System.out.println("Called from side 2, level "+(level-1));
 			}
 		} */
-		if(lookup[r][d] > 0){
+		if(lookup[r][d] >= 0){
 			//if(debug) System.out.println("Base memoir");
 			return lookup[r][d];
 		}else if(d >= k){
@@ -77,6 +77,8 @@ public class DiceBet{
 		s = in.nextInt();
 		k = in.nextInt();
 		lookup = new double[n+1][k+1];
+		for(double[] row: lookup)
+			Arrays.fill(row, -1.0);
 		int d = 0;
 		prob = betProbability(n, d, 0, true);
 		//answer
