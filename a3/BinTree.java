@@ -1,5 +1,7 @@
+//BinTree.java
+//Descoteaux, Marc-Andre
 
-//import java.lang.Math;
+// NOTE: THIS TREE WORKS UNDER THE ASSUMPTION THAT NOT ALL KEYS ARE DISTINCT AND KEYS OF EQUAL VALUE WILL BE PUT INTO THE RIGHT CHILD
 
 public class BinTree{
 	

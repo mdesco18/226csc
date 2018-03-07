@@ -302,7 +302,7 @@ public class LinkedList{
 
 /**
 	*
-	* check if all operations have not invalidated the integrity of the list
+	* check if any operations have invalidated the integrity of the list
 	*
 */
 	public void checkList(){

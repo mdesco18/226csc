@@ -1,6 +1,6 @@
 //Node class
 
-public class NodeS{
+public class StringNode{
 
 	public String data;
 	public NodeS next;

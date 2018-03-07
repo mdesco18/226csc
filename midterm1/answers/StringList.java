@@ -1,9 +1,9 @@
-//LinkedString class
+//StringList class
 
 import java.util.*;
 import java.io.*;
 
-public class LinkedString{
+public class StringList{
 
 	static boolean debug= false;
 
@@ -18,12 +18,12 @@ public class LinkedString{
 	* second with choice variables
 	*
 */
-	public LinkedString(){
+	public StringList(){
 		n= 0;
 		start= null;
 		rear= null;
 	}
-	public LinkedString(int n, NodeS start, NodeS rear){
+	public StringList(int n, NodeS start, NodeS rear){
 		this.n= n;
 		this.start= start;
 		this.rear= rear;
@@ -47,7 +47,7 @@ public class LinkedString{
 
 /**
 	*
-	* adds a NodeS to the rear of the LinkedString
+	* adds a NodeS to the rear of the StringList
 	*
 */
 	public void addRear(String val){
@@ -113,28 +113,28 @@ public class LinkedString{
 						}
 	//check if the number of NodeSs counted is equal to the number of NodeSs set in the list
 						if( i != n ){
-							System.err.println("LinkedString not properly set - wrong number of n or list has null NodeSs");
+							System.err.println("StringList not properly set - wrong number of n or list has null NodeSs");
 							System.exit(0);
 						}
 	//check if rear pointer points to last NodeS
 						if(rear != prev){
-							System.err.println("LinkedString not properly set - rear doesn't point to last NodeS");
+							System.err.println("StringList not properly set - rear doesn't point to last NodeS");
 							System.exit(0);
 						}
 					}else{
-						System.err.println("LinkedString not properly set - rear doesn't point to null");
+						System.err.println("StringList not properly set - rear doesn't point to null");
 						System.exit(0);
 					}
 				}else{
-					System.err.println("LinkedString not properly set - start is null");
+					System.err.println("StringList not properly set - start is null");
 					System.exit(0);	
 				}
 			}else{
-				System.err.println("LinkedString not properly set - List has no NodeSs");
+				System.err.println("StringList not properly set - List has no NodeSs");
 				System.exit(0);
 			}
 		}else{
-			System.err.println("LinkedString not properly set - List is null");
+			System.err.println("StringList not properly set - List is null");
 			System.exit(0);
 		}
 	}
