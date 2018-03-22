@@ -5,6 +5,7 @@ public class Edge{
 	
 	public final int u;
 	public final int v;
+	public int item;
 	public double weight;
 	public Edge next; //pointer
 	
@@ -12,6 +13,7 @@ public class Edge{
 		u = 0;
 		v = 0;
 		weight = 0.0;
+		item = 0;
 		next = null;
 	}
 	
@@ -22,6 +24,18 @@ public class Edge{
 		this.u = u;
 		this.v = v;
 		weight = w;
+		item = 0;
+		next = null;
+	}
+	
+	public Edge(int u, int v, double w, int item){
+		if (u < 0) throw new IllegalArgumentException("vertex index must be a nonnegative integer");
+        if (v < 0) throw new IllegalArgumentException("vertex index must be a nonnegative integer");
+        if (Double.isNaN(w)) throw new IllegalArgumentException("Weight is NaN");
+		this.u = u;
+		this.v = v;
+		weight = w;
+		this.item = item;
 		next = null;
 	}
 	
@@ -32,6 +46,7 @@ public class Edge{
 		this.u = u;
 		this.v = v;
 		weight = w;
+		item = 0;
 		next = p;
 	}
 	public double weight(){
@@ -55,7 +70,7 @@ public class Edge{
     }
 	
 	public String toString(){
-        return String.format("%d-%d %.5f", u, v, weight);
+        return String.format("%d-%d %.3f %d", u, v, weight, item);
     }
 	
 }

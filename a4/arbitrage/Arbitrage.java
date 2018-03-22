@@ -17,8 +17,9 @@ public class Arbitrage{
 		input.nextLine(); //feed line
 		int R = 0;
 		
+		
 		while(C > 0){
-			
+			boolean arbitrage = false;
 			Map<String, Integer> codes = new HashMap<String, Integer>(); //mappings for currency code to vertex
 			EdgeWeightedDigraph G = new EdgeWeightedDigraph(C);
 			//get currency codes
@@ -51,11 +52,16 @@ public class Arbitrage{
 					}) ;
 					System.out.println();
 				}
-				
-				BellmanFord spt = new BellmanFord(G, 0);
-				if (spt.hasNegativeCycle()) System.out.println("Arbitrage");
+				for(int i = 0; i < C; i++){
+					BellmanFord spt = new BellmanFord(G, i);
+					if (spt.hasNegativeCycle()){
+						arbitrage = true;
+						break;
+					}
+				}
+				if(arbitrage) System.out.println("Arbitrage");
 				else System.out.println("Ok");
-				
+					
 				
 			C = input.nextInt();
 			

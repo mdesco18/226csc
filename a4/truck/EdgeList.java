@@ -137,7 +137,27 @@ public class EdgeList{
 		n++;
 		this.checkList();
 	}
-	/* this is broken, must create new nodes
+	/**
+	*
+	* adds a Edge to the rear of the LinkedList
+	*
+*/
+	public void addRear(int u, int v, double w, int item){
+		if(debug) System.out.println("in addRear new");
+		Edge curr;
+		curr = new Edge(u, v, w, item);
+		if(start == null){
+			start = curr;
+			rear = curr;
+		}else{
+			rear.next = curr;
+			rear = curr;
+		}
+		
+		n++;
+		this.checkList();
+	}
+	/* this is broken when creating iterables, must create new nodes
 	public void addRear(Edge e){
 		if(debug) System.out.println("in addRear edge");
 		if(start == null){

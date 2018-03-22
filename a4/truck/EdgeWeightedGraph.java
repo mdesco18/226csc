@@ -33,6 +33,13 @@ public class EdgeWeightedGraph{
         adj[v].addRear(u, v, w);
         E++;
     }
+	public void addEdge(int u, int v, double w, int itema, int itemb) {
+		validateVertex(u);
+		validateVertex(v);
+        adj[u].addRear(u, v, w, itema);
+        adj[v].addRear(v, u, w, itemb);
+        E++;
+    }
 	/*
 	public void addEdge(Edge e) {
 		if(debug) System.out.println(e);
@@ -59,25 +66,34 @@ public class EdgeWeightedGraph{
 		validateVertex(v);
         return adj[v].edges();
     }
-	
+
 	public Iterable<Edge> edges() {
         EdgeList list = new EdgeList();
         for (int v = 1; v <= V; v++) {
             int selfLoops = 0;
             for (Edge e : adj(v)) {
                 if (e.other(v) > v) {
-                    list.addRear(e.u, e.v, e.weight);
+                    list.addRear(e.u, e.v, e.weight, e.item);
                 }
                 // add only one copy of each self loop (self loops will be consecutive)
                 else if (e.other(v) == v) {
-                    if (selfLoops % 2 == 0) list.addRear(e.u, e.v, e.weight);
+                    if (selfLoops % 2 == 0) list.addRear(e.u, e.v, e.weight, e.item);
                     selfLoops++;
                 }
             }
         }
         return list.edges();
     }
-	
+
+	/*
+	public Iterable<Edge> edges(){
+		
+		int i = 0;
+		EdgeList list = new EdgeList();
+		for(int v = 1; v <= V; v++){
+			i += adj[v].size();
+		}
+	}*/
 	public String toString() {
         StringBuilder s = new StringBuilder();
         s.append(V + " " + E + "\n");

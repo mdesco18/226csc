@@ -26,8 +26,10 @@
  
 public class DijkstraUndirectedSP {
     private double[] distTo;          // distTo[v] = distance  of shortest s->v path
+	public double[] itemGet;				// items picked up along shortest path s->v
     private Edge[] edgeTo;            // edgeTo[v] = last edge on shortest s->v path
     private IndexMinPQ<Double> pq;    // priority queue of vertices
+	private boolean debug = true;
 
     /**
      * Computes a shortest-paths tree from the source vertex {@code s} to every
@@ -46,13 +48,23 @@ public class DijkstraUndirectedSP {
 
         distTo = new double[G.V()+1];
         edgeTo = new Edge[G.V()+1];
+		itemGet = new double[G.V()+1];
 
         validateVertex(s);
 
-        for (int v = 0; v <= G.V(); v++)
+        for (int v = 0; v <= G.V(); v++){
             distTo[v] = Double.POSITIVE_INFINITY;
+			itemGet[v] = 0.0;//Double.NEGATIVE_INFINITY;
+		}
         distTo[s] = 0.0;
-
+		itemGet[s] = G.adj[s].start.item;
+		System.out.println(itemGet[s]);
+		/*
+		for(Edge e : G.edges()){
+			System.out.println(e);
+			itemGet[e.u] = e.item;
+		}*/
+		
         // relax vertices in order of distance from s
         pq = new IndexMinPQ<Double>(G.V());
         pq.insert(s, distTo[s]);
@@ -66,7 +78,7 @@ public class DijkstraUndirectedSP {
         assert check(G, s);
     }
 
-    // relax edge e and update pq if changed
+    /* relax edge e and update pq if changed
     private void relax(Edge e, int v) {
         int w = e.other(v);
         if (distTo[w] > distTo[v] + e.weight()) {
@@ -75,6 +87,33 @@ public class DijkstraUndirectedSP {
             if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
             else                pq.insert(w, distTo[w]);
         }
+    }*/
+	
+	//relax with item checking
+	private void relax(Edge e, int v) {
+        int w = e.other(v);
+		
+		if(debug){
+			System.out.println(e);
+			System.out.println(v +" "+distTo[v]+" "+itemGet[v]+" "+edgeTo[v]);
+			System.out.println(w +" "+distTo[w]+" "+itemGet[w]+" "+edgeTo[w]);
+			System.out.println("");
+		}
+		
+        if (distTo[w] > distTo[v] + e.weight()) {
+			
+			itemGet[w] = itemGet[v] + e.item;
+            distTo[w] = distTo[v] + e.weight();
+            edgeTo[w] = e;
+            if (pq.contains(w)) pq.decreaseKey(w, distTo[w]);
+            else                pq.insert(w, distTo[w]);
+			
+        }else if(distTo[w] == distTo[v] + e.weight()){
+			if(itemGet[w] < itemGet[v] + e.item){
+				itemGet[w] = itemGet[v] + e.item;
+				edgeTo[w] = e;
+			}
+		}
     }
 
     /**
@@ -89,6 +128,11 @@ public class DijkstraUndirectedSP {
     public double distTo(int v) {
         validateVertex(v);
         return distTo[v];
+    }
+	
+	public double itemGet(int v) {
+        validateVertex(v);
+        return itemGet[v];
     }
 
     /**
